@@ -45,7 +45,11 @@ const render = (mdl) => {
     )
 } 
 
-render(new Module())
+try {
+    before(() => render(new Module()))
+} catch(_) {
+    render(new Module())
+}
 
 if (module.hot) {
     module.hot.accept("./src/App", () => {

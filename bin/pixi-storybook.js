@@ -27,6 +27,18 @@ if (config.static) {
     app.use(express.static(path.join(configDir, config.static), {index: false}))
 }
 
+if (config.before) {
+    webpackConfig.module.rules.unshift({
+        test: path.resolve(__dirname, "../index.js"),
+        use: {
+            loader: path.resolve(__dirname, "../loaders/beforeLoader"),
+            options: {
+                before: path.join(configDir, config.before)
+            }
+        }
+    })
+}
+
 if (config.declare) {
     webpackConfig.module.rules.unshift({
         test: path.resolve(__dirname, "../src/App"),
