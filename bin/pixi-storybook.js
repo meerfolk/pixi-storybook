@@ -15,6 +15,9 @@ if (argv.config && fs.existsSync(argv.config)) {
     const configPath = path.join(process.cwd(), argv.config)
     configDir = path.dirname(configPath)
     config = require(path.join(process.cwd(), argv.config))
+} else {
+    console.log("ERROR: config file not set")
+    return
 }
 
 const app = express()
@@ -24,7 +27,7 @@ if (config.static) {
     app.use(express.static(path.join(configDir, config.static), {index: false}))
 }
 
-if (config && config.declare) {
+if (config.declare) {
     webpackConfig.module.rules.unshift({
         test: path.resolve(__dirname, "../src/App"),
         use: {
