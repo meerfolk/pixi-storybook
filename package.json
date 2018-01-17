@@ -1,6 +1,6 @@
 {
   "name": "pixi-storybook",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "something like https://storybook.js.org/ for pixi.js",
   "main": "index.js",
   "bin": {
