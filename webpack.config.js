@@ -31,6 +31,10 @@ module.exports = {
                         onlyCompileBundledFiles: true
                     }
                 }
+            },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"]
             }
         ]
     },
