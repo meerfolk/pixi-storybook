@@ -29,9 +29,9 @@ export class App extends React.Component {
     }
 
     buttonClickHandler(item) {
-        let obj = this.props.module.map.get(item)
-        if (obj) {
-            this.props.pixiHandler(obj)
+        let handler = this.props.module.map.get(item)
+        if (handler) {
+            this.props.pixiHandler(handler())
         }
     }
     
