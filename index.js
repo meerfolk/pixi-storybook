@@ -14,12 +14,8 @@ const pixiHandler = (object) => {
 
 function startPixi() {
     const renderer = PIXI.autoDetectRenderer(
-        800, 
-        600, 
-        {
-            view: document.getElementById("pixi"),
-            transparent: true
-        })
+        Object.assign({transparent: true}, rendererConfig, {view: document.getElementById("pixi")})
+    )
 
     animate()
     function animate() {

@@ -27,13 +27,16 @@ if (config.static) {
     app.use(express.static(path.join(configDir, config.static), {index: false}))
 }
 
-if (config.before || config.styles) {
+if (config.before || config.styles || config.renderer) {
     let options = {}
     if (config.before) {
         options.before = path.join(configDir, config.before);
     }
     if (config.styles) {
         options.styles = config.styles.map(item => path.join(configDir, item)) 
+    }
+    if (config.renderer) {
+        options.renderer = config.renderer
     }
     webpackConfig.module.rules.unshift({
         test: path.resolve(__dirname, "../index.js"),
