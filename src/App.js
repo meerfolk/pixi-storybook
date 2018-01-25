@@ -1,6 +1,7 @@
 import React from "react"
 import { Module } from "./Module"
 import { LeftPanel } from "./leftPanel/LeftPanel"
+import { Controller } from "./Controller"
 
 export class App extends React.Component {
 
@@ -31,7 +32,7 @@ export class App extends React.Component {
     buttonClickHandler(item) {
         let handler = this.props.module.map.get(item)
         if (handler) {
-            this.props.pixiHandler(handler())
+            this.props.pixiHandler(new Controller(handler()))
         }
     }
     
