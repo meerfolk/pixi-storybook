@@ -32,7 +32,11 @@ export class App extends React.Component {
     buttonClickHandler(item) {
         let handler = this.props.module.map.get(item)
         if (handler) {
-            this.props.pixiHandler(new Controller(handler()))
+            try {
+                this.props.pixiHandler(new Controller(handler()))
+            } catch(e) {
+                console.warn(e)
+            }
         }
     }
     
