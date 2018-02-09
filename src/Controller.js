@@ -2,7 +2,7 @@ import { DisplayObject, Container, Graphics } from "pixi.js"
 
 export class Controller extends Container {
 
-    constructor(obj: DisplayObject) {
+    constructor(obj) {
         super()
         this.addChild(obj)
         this.bodrer = new Graphics()
@@ -11,12 +11,25 @@ export class Controller extends Container {
         this.on("mousedown", this._downHandler)
         this.on("mouseup", this._upHanler)
         this.on("mousemove", this._moveHandler)
+        window.addEventListener("keydown", this._keydown.bind(this))
         this.baseObj = obj
     }
 
+    _keydown(e) {
+        if (e.ctrlKey && e.code === "KeyZ") {
+            if (this._obj && this._obj.parent) {
+                this._obj = this._obj.parent
+                this._drawBorder(this._obj)
+            }
+        }
+        if (e.code === "Escape") {
+            this._obj = null
+            this.removeChild(this.bodrer)
+        }
+    }
+
     _moveHandler(e) {
-        if (e.data.originalEvent.buttons === 1 
-            && e.data.originalEvent.ctrlKey && this._obj) {
+        if (e.data.originalEvent.buttons === 1 && this._obj) {
             let dX = this._x - e.data.global.x
             this._obj.position.x -= dX
             let dY = this._y - e.data.global.y
@@ -30,12 +43,13 @@ export class Controller extends Container {
         if (this._obj === null) {
             return
         }
-        console.log({x: this._obj.position.x, y: this._obj.position.y})
-        this._obj = null
+        if (this._obj) {
+            console.log({x: this._obj.position.x, y: this._obj.position.y})
+        }
     }
 
     _downHandler(e) {
-        if (e.data.originalEvent.ctrlKey) {
+        if (e.data.originalEvent.shiftKey) {
             this._obj = this._findObject(this.baseObj, e.data.global.x, e.data.global.y)
             this._drawBorder(this._obj)
             this._x = e.data.global.x
