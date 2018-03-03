@@ -13,7 +13,7 @@ module.exports = function (content) {
         })
         additionalContent += styleImports 
     }
-    additionalContent += `const rendererConfig=${JSON.stringify(options.renderer) || "{}"}\n`
+    additionalContent += `const rendererConfig=${options.renderer ? JSON.stringify(options.renderer) : "{}"}\n`
     return `${additionalContent}\n${content}` 
    
 }

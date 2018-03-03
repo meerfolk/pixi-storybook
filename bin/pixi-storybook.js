@@ -27,8 +27,8 @@ if (config.static) {
     app.use(express.static(path.join(configDir, config.static), {index: false}))
 }
 
+let options = {}
 if (config.before || config.styles || config.renderer) {
-    let options = {}
     if (config.before) {
         options.before = path.join(configDir, config.before);
     }
@@ -38,14 +38,14 @@ if (config.before || config.styles || config.renderer) {
     if (config.renderer) {
         options.renderer = config.renderer
     }
-    webpackConfig.module.rules.unshift({
-        test: path.resolve(__dirname, "../index.js"),
-        use: {
-            loader: path.resolve(__dirname, "../loaders/indexLoader"),
-            options
-        }
-    })
 }
+webpackConfig.module.rules.unshift({
+    test: path.resolve(__dirname, "../index.js"),
+    use: {
+        loader: path.resolve(__dirname, "../loaders/indexLoader"),
+        options
+    }
+})
 
 if (config.declare) {
     webpackConfig.module.rules.unshift({
